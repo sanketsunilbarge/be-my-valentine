@@ -25,7 +25,7 @@
     text-align: center;
     box-shadow: 0 20px 45px rgba(0,0,0,0.25);
     animation: popIn 1s ease;
-    z-index: 1; /* LOWER than buttons */
+    z-index: 2;
   }
 
   @keyframes popIn {
@@ -37,21 +37,25 @@
     color: #ff3366;
   }
 
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
   button {
     padding: 14px 30px;
     font-size: 18px;
     border: none;
     border-radius: 16px;
-    margin: 12px;
     cursor: pointer;
-    z-index: 10; /* ALWAYS clickable */
   }
 
   #yes {
     background: #ff3366;
     color: white;
     animation: pulse 1.4s infinite;
-    position: relative;
   }
 
   @keyframes pulse {
@@ -62,8 +66,12 @@
 
   #no {
     background: #ddd;
-    position: fixed; /* IMPORTANT FIX */
-    z-index: 20;     /* ABOVE EVERYTHING */
+    position: relative; /* starts normally */
+  }
+
+  #no.run {
+    position: fixed;   /* escapes the card */
+    z-index: 10;
   }
 
   img {
@@ -78,7 +86,7 @@
     color: #ff3366;
     animation: floatUp 4s linear forwards;
     opacity: 0.9;
-    z-index: 0;
+    z-index: 1;
   }
 
   @keyframes floatUp {
@@ -92,10 +100,12 @@
 
 <div class="card" id="card">
   <h1>Will you be my Valentine? 💖</h1>
-  <button id="yes">Yes 💕</button>
-</div>
 
-<button id="no">No 💔</button>
+  <div class="buttons">
+    <button id="yes">Yes 💕</button>
+    <button id="no">No 💔</button>
+  </div>
+</div>
 
 <audio id="music" src="music.mp3" loop></audio>
 
@@ -106,19 +116,18 @@
   const music = document.getElementById("music");
 
   function moveNo() {
+    noBtn.classList.add("run");
     const x = Math.random() * (window.innerWidth - 120);
     const y = Math.random() * (window.innerHeight - 80);
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
   }
 
-  // Start No button at random place
-  moveNo();
-
   noBtn.addEventListener("mouseover", moveNo);
   noBtn.addEventListener("touchstart", moveNo);
 
   yesBtn.addEventListener("click", () => {
+    noBtn.remove();          // ❌ No disappears forever
     playMusic();
     showFinal();
     startHearts();
