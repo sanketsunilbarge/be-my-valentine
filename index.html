@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #ffe6eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      color: #ff3366;
+    }
+
+    button {
+      padding: 14px 26px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      margin: 12px;
+      cursor: pointer;
+    }
+
+    #yes {
+      background: #ff3366;
+      color: white;
+    }
+
+    #no {
+      background: #ccc;
+      position: absolute;
+    }
+
+    img {
+      margin-top: 20px;
+      width: 240px;
+      border-radius: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="card">
+    <h1>Will you be my Valentine? 💖</h1>
+    <button id="yes">Yes 💕</button>
+    <button id="no">No 💔</button>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const card = document.getElementById("card");
+
+    function moveNoButton() {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 60);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    noBtn.addEventListener("mouseover", moveNoButton);
+    noBtn.addEventListener("touchstart", moveNoButton);
+
+    yesBtn.addEventListener("click", () => {
+      card.innerHTML = `
+        <h1>YAYYYYY ❤️😍</h1>
+        <p>You are officially my Valentine 💘</p>
+        <img src="photo.jpg">
+      `;
+    });
+  </script>
+
+</body>
+</html>
